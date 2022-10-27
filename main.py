@@ -11,31 +11,60 @@ text = QLabel('какой национальности не существует
 ans = QPushButton('ответить')
 
 
+text1 = QLabel('правильно/неправильно')
+text2 = QLabel('правильный ответ')
+
 groupbox = QGroupBox('варианты ответов')
 a1 = QRadioButton('энцы')
 a2 = QRadioButton('чулымцы')
 a3 = QRadioButton('смурфы')
 a4 = QRadioButton('алеуты')
+
 button = QPushButton('ответить')
 
+buttonbox = QButtonGroup()
+buttonbox.addButton(a1)
+buttonbox.addButton(a2)
+buttonbox.addButton(a3)
+buttonbox.addButton(a4)
+
+def checkans():
+    if a1.isChecked():
+        text1.setText('правильно')
+        return a1.text()
+    else:
+        text1.setText('неправильно')
+        if a2.isChecked():
+            return a2.text()
+        if a3.isChecked():
+            return a3.text()
+        if a4.isChecked():
+            return a4.text()
 
 
 
+
+def cleanbut():
+    buttonbox.setExclusive(False)
+    a1.setChecked(False)
+    a2.setChecked(False)
+    a3.setChecked(False)
+    a4.setChecked(False)
+    buttonbox.setExclusive(True)
 
 
 def ans():
     checkans()
     text.setText('самый сложный вопрос в мире')
     groupbox.hide()
-
-    text2.setText(a1.text())
-
+    text2.setText(f'ваш ответ:\n  {checkans()}')
     layt2.addWidget(groupbox1)
     groupbox1.show()
     button.setText('следующий вопрос')
 
 def question():
-    text.setText('question')
+    cleanbut()
+    text.setText('какой национальности не существует?')
     groupbox1.hide()
     groupbox.show()
     button.setText('ответить')
@@ -53,8 +82,6 @@ def ask(q,*args):
     a3.setText(args[2])
     a3.setText(args[3])
     a4.setText(args[4])
-
-
 
 button.clicked.connect(checkbutton)
 
@@ -81,8 +108,6 @@ laytbut.addWidget(button)
 groupbox.setLayout(laytans1)
 groupbox1 = QGroupBox('результаты теста')
 
-text1 = QLabel('правильно/неправильно')
-text2 = QLabel('правильный ответ')
 
 boxlayt = QVBoxLayout()
 
@@ -95,10 +120,6 @@ layt2.addWidget(groupbox)
 thelayt.addLayout(layt1)
 thelayt.addLayout(layt2)
 thelayt.addLayout(laytbut)
-
-
-
-
 
 
 win.setLayout(thelayt)
