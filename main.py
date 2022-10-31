@@ -1,6 +1,7 @@
 #создай приложение для запоминания информац
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
+from random import shuffle
 
 app = QApplication([])
 
@@ -14,11 +15,26 @@ ans = QPushButton('ответить')
 text1 = QLabel('правильно/неправильно')
 text2 = QLabel('правильный ответ')
 
+class Question():
+    def __init__(self,q,ans1,ans2,ans3,ans4):
+        self.q = q
+        self.ans1 = ans1
+        self.ans2 = ans2
+        self.ans3 = ans3
+        self.ans4 = ans4
+        answers = [ans1,ans2,ans3,ans4]
+        shuffle(answers)
+        self.answers = answers
+
+q1 = Question('день независимости кыргызыстана','31 августа','7 апреля','8 марта','31 декабря')
+
+text.setText(q1.q)
+
 groupbox = QGroupBox('варианты ответов')
-a1 = QRadioButton('энцы')
-a2 = QRadioButton('чулымцы')
-a3 = QRadioButton('смурфы')
-a4 = QRadioButton('алеуты')
+a1 = QRadioButton(q1.answers[0])
+a2 = QRadioButton(q1.answers[1])
+a3 = QRadioButton(q1.answers[2])
+a4 = QRadioButton(q1.answers[3])
 
 button = QPushButton('ответить')
 
@@ -40,8 +56,6 @@ def checkans():
             return a3.text()
         if a4.isChecked():
             return a4.text()
-
-
 
 
 def cleanbut():
@@ -125,4 +139,3 @@ thelayt.addLayout(laytbut)
 win.setLayout(thelayt)
 win.show()
 app.exec()
-
