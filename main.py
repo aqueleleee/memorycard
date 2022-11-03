@@ -24,11 +24,9 @@ class Question():
         self.wr3 = wr3
         self.wr4 = wr4
 
-
-
 quest1 = Question('день независимости кыргызыстана', '31 августа', '7 апреля', '8 марта', '31 декабря')
-quest2 = Question('Сколько синих полос на флаге США?',0,7,8,4)
-quest3 = Question('Сколько костей в теле человека?',206,280,170,649)
+quest2 = Question('Сколько синих полос на флаге США?','0','7','8','4')
+quest3 = Question('Сколько костей в теле человека?','206','280','170','649')
 quest4 = Question('Как назывался корабль капитана Джека Воробья в "Пиратах Карибского моря"?',
                   'Черная жемчужина','Мародер','Слизерин','Черный питон')
 
@@ -139,13 +137,15 @@ thelayt.addLayout(laytbut)
 
 
 
+now = -1
 def nextq():
-    time += 1
-    if time >= len(qlist):
-        time = 0
-    addq(qlist[time])
+    global now
+    now += 1
+    if now >= len(qlist):
+        now = 0
+    addq(qlist[now])
 
-time = -1
+
 
 def addq(cls):
     shuffle(answers)
@@ -156,6 +156,7 @@ def addq(cls):
     answers[3].setText(cls.wr4)
 
 
+nextq()
 win.setLayout(thelayt)
 win.show()
 app.exec()
